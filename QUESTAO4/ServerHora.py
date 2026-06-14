@@ -4,7 +4,7 @@ import threading
 from datetime import datetime
 from zoneinfo import ZoneInfo
 import logging
-# Nome dos participantes: [Seu Nome, Parceiro 1, Parceiro 2]
+# Nome dos participantes: [Gabriel Castro, Murilo Escobedo, Pávila Miranda, Humberto Freire]
 
 TZ = ZoneInfo(os.getenv('TZ', 'America/Sao_Paulo'))
 

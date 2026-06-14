@@ -1,6 +1,6 @@
 import socket
 import threading
-# Nome dos participantes: [Seu Nome, Parceiro 1, Parceiro 2]
+# Nome dos participantes: [Gabriel Castro, Murilo Escobedo, Pávila Miranda, Humberto Freire]
 
 HOST = '0.0.0.0'
 PORT = 5500

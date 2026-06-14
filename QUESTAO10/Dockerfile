@@ -9,4 +9,4 @@ COPY server.py CientWebSocketPage.html ./
 
 EXPOSE 8765 8080
 
-CMD ["python", "server.py"]
+CMD ["python", "ServerWebSocket.py"]
