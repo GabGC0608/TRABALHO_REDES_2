@@ -1,7 +1,8 @@
+import os
 import socket
 # Nome dos participantes: [Seu Nome, Parceiro 1, Parceiro 2]
 
-HOST = 'localhost'
+HOST = os.getenv('SERVER_HOST', 'localhost')
 PORT = 7000
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

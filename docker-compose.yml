@@ -1,0 +1,45 @@
+services:
+  questao1:
+    build: ./QUESTAO1
+    container_name: questao1-tcp
+    ports:
+      - "5000:5000"
+    networks:
+      - redes
+
+  questao2:
+    build: ./QUESTAO2
+    container_name: questao2-udp
+    ports:
+      - "6000:6000/udp"
+    networks:
+      - redes
+
+  questao3:
+    build: ./QUESTAO3
+    container_name: questao3-chat
+    ports:
+      - "5500:5500"
+    networks:
+      - redes
+
+  questao4:
+    build: ./QUESTAO4
+    container_name: questao4-hora
+    ports:
+      - "7000:7000"
+    networks:
+      - redes
+
+  questao10:
+    build: ./QUESTAO10
+    container_name: questao10-websocket
+    ports:
+      - "8765:8765"
+      - "8080:8080"
+    networks:
+      - redes
+
+networks:
+  redes:
+    driver: bridge

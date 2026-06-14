@@ -2,7 +2,7 @@ import socket
 import threading
 # Nome dos participantes: [Seu Nome, Parceiro 1, Parceiro 2]
 
-HOST = 'localhost'
+HOST = '0.0.0.0'
 PORT = 5500
 clients = []  # Lista de clientes conectados
 

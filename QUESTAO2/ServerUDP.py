@@ -1,7 +1,7 @@
 import socket
 # Nome dos participantes: [Seu Nome, Parceiro 1, Parceiro 2]
 
-HOST = 'localhost'
+HOST = '0.0.0.0'
 PORT = 6000
 MAX_SIZE = 65536  # Limite UDP
 

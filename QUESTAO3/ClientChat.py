@@ -1,8 +1,9 @@
+import os
 import socket
 import threading
 # Nome dos participantes: [Seu Nome, Parceiro 1, Parceiro 2]
 
-HOST = 'localhost'
+HOST = os.getenv('SERVER_HOST', 'localhost')
 PORT = 5500
 
 def receive_messages(client):

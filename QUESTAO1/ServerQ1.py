@@ -19,7 +19,7 @@ def handle_client(client_socket, addr):
         print(f"Cliente {addr} desconectado")
 
 # Configuração servidor
-HOST = 'localhost'
+HOST = '0.0.0.0'
 PORT = 5000
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

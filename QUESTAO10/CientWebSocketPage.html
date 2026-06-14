@@ -5,7 +5,8 @@
   <input id="input" type="text">
   <button onclick="send()">Enviar</button>
   <script>
-    const ws = new WebSocket("ws://localhost:8765");
+    const wsPort = 8765;
+    const ws = new WebSocket(`ws://${window.location.hostname}:${wsPort}`);
     ws.onmessage = (event) => {
       document.getElementById('messages').innerHTML += '<p>' + event.data + '</p>';
     };
