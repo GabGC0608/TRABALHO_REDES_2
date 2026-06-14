@@ -1,21 +1,43 @@
-<!-- Nome dos participantes: [Gabriel Castro, Murilo Escobedo, Pávila Miranda, Humberto Freire] -->
+<!--
+  QUESTÃO 10 — Página web do chat WebSocket
+  Conecta ao servidor ws://hostname:8765 e exibe/envia mensagens em tempo real.
+  Participantes: Gabriel Castro, Murilo Escobedo, Pávila Miranda, Humberto Freire
+-->
 
 <!DOCTYPE html>
 <html>
 <body>
+  <!-- Área onde mensagens recebidas de outros usuários são exibidas -->
   <div id="messages"></div>
+  
+  <!-- Campo de entrada de texto para digitar mensagens -->
   <input id="input" type="text">
+  
+  <!-- Botão que chama a função send() ao ser clicado -->
   <button onclick="send()">Enviar</button>
+  
   <script>
+    // Porta do WebSocket — deve coincidir com WS_PORT no ServerWebSocket.py
     const wsPort = 8765;
+    
+    // hostname = mesmo host da página (localhost ao acessar http://localhost:8080/)
+    // Constrói URL ws://localhost:8765 (ou IP da máquina em rede local)
     const ws = new WebSocket(`ws://${window.location.hostname}:${wsPort}`);
+    
+    // Evento disparado quando uma mensagem chega do servidor WebSocket
     ws.onmessage = (event) => {
+      // Adiciona parágrafo com o texto recebido na div #messages
       document.getElementById('messages').innerHTML += '<p>' + event.data + '</p>';
     };
+    
+    /**
+     * Envia o conteúdo do input via WebSocket e limpa o campo.
+     * Chamada pelo botão "Enviar".
+     */
     function send() {
       const input = document.getElementById('input');
-      ws.send(input.value);
-      input.value = '';
+      ws.send(input.value);  // Envia string ao servidor (broadcast aos outros)
+      input.value = '';        // Limpa o campo após envio
     }
   </script>
 </body>

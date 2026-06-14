@@ -1,20 +1,26 @@
+# Orquestração dos serviços do trabalho de redes via Docker Compose.
+# Cada serviço expõe uma porta no host (localhost) para testes locais.
+
 services:
+  # Questão 1 — Servidor TCP (confirmação de mensagens)
   questao1:
     build: ./QUESTAO1
     container_name: questao1-tcp
     ports:
-      - "5000:5000"
+      - "5000:5000"   # host:container — cliente conecta em localhost:5000
     networks:
       - redes
 
+  # Questão 2 — Servidor UDP de eco
   questao2:
     build: ./QUESTAO2
     container_name: questao2-udp
     ports:
-      - "6000:6000/udp"
+      - "6000:6000/udp"   # protocolo UDP na porta 6000
     networks:
       - redes
 
+  # Questão 3 — Chat TCP entre dois clientes
   questao3:
     build: ./QUESTAO3
     container_name: questao3-chat
@@ -23,6 +29,7 @@ services:
     networks:
       - redes
 
+  # Questão 4 — Servidor que retorna hora (fuso São Paulo)
   questao4:
     build: ./QUESTAO4
     container_name: questao4-hora
@@ -33,15 +40,17 @@ services:
     networks:
       - redes
 
+  # Questão 10 — WebSocket (8765) + página web HTTP (8080)
   questao10:
     build: ./QUESTAO10
     container_name: questao10-websocket
     ports:
-      - "8765:8765"
-      - "8080:8080"
+      - "8765:8765"   # WebSocket — ws://localhost:8765
+      - "8080:8080"   # HTTP — http://localhost:8080/
     networks:
       - redes
 
+# Rede bridge compartilhada entre todos os containers
 networks:
   redes:
     driver: bridge
