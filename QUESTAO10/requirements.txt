@@ -1,2 +1,7 @@
-# Questão 10 — ServerWebSocket.py
+# Questão 10 — dependências do servidor e da página web (front-end)
+
+# Servidor WebSocket — chat em tempo real entre clientes conectados
 websockets>=12.0
+
+# Servidor HTTP — entrega a página HTML/JS do chat (CientWebSocketPage.html)
+flask>=3.0.0

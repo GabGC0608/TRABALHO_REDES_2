@@ -245,6 +245,102 @@ No Docker, os serviços já expõem as portas no host; os clientes locais contin
 
 ---
 
+## Rodar em 2 computadores (rede local)
+
+Use um PC como **servidor** e o outro como **cliente**. Ambos devem estar na mesma rede (Wi‑Fi ou cabo) e o firewall do servidor deve permitir as portas usadas.
+
+### Passo 1 — Descobrir o IP do PC servidor
+
+No **PC servidor** (Windows PowerShell):
+
+```powershell
+ipconfig
+```
+
+Anote o **IPv4** da interface ativa (ex.: `192.168.1.10`). Nos exemplos abaixo, substitua por esse IP.
+
+### Passo 2 — Liberar portas no firewall (PC servidor)
+
+No Windows, permita entrada nas portas do exercício que você vai testar (ex.: 5000, 5500, 6000, 7000, 8080, 8765). Você pode criar regras no “Firewall do Windows” ou, em ambiente de laboratório, desativar temporariamente o firewall.
+
+### Passo 3 — Rodar o servidor no PC servidor
+
+**Sem Docker** — no PC servidor, inicie o servidor da questão (ex. Questão 1):
+
+```bash
+cd QUESTAO1
+python ServerQ1.py
+```
+
+**Com Docker** — na raiz do projeto no PC servidor:
+
+```bash
+docker compose up --build
+```
+
+### Passo 4 — Rodar o cliente no PC cliente
+
+No **segundo PC**, clone ou copie o projeto e aponte o cliente ao IP do servidor com `SERVER_HOST`:
+
+**Windows PowerShell:**
+
+```powershell
+cd QUESTAO1
+$env:SERVER_HOST = "192.168.1.10"
+python ClientQ1.py
+```
+
+**Linux/macOS:**
+
+```bash
+cd QUESTAO1
+export SERVER_HOST=192.168.1.10
+python ClientQ1.py
+```
+
+O mesmo vale para os outros clientes (`ClientUDP.py`, `ClientChat.py`, `ClientHora.py`).
+
+### Resumo por questão (2 PCs)
+
+| Questão | PC servidor (roda) | PC cliente (roda) | Porta(s) no firewall |
+|---------|--------------------|-------------------|----------------------|
+| Q1 TCP | `ServerQ1.py` ou Docker | `ClientQ1.py` + `SERVER_HOST=IP` | 5000 |
+| Q2 UDP | `ServerUDP.py` ou Docker | `ClientUDP.py` + `SERVER_HOST=IP` | 6000 (UDP) |
+| Q3 Chat | `ServerChat.py` ou Docker | 2× `ClientChat.py` (pode ser 1 em cada PC) | 5500 |
+| Q4 Hora | `ServerHora.py` ou Docker | `ClientHora.py` + `SERVER_HOST=IP` | 7000 |
+| Q10 Web | `ServerWebSocket.py` ou Docker | Navegador em ambos os PCs | 8080 e 8765 |
+
+### Questão 10 — Chat web em 2 PCs (detalhado)
+
+1. **PC servidor** — instale dependências e suba o servidor:
+
+```bash
+cd QUESTAO10
+pip install -r requirements.txt
+python ServerWebSocket.py
+```
+
+O terminal mostrará algo como:
+
+```
+Pagina web (este PC):     http://localhost:8080/
+Pagina web (outros PCs):  http://192.168.1.10:8080/
+WebSocket (este PC):      ws://localhost:8765
+WebSocket (outros PCs):   ws://192.168.1.10:8765
+```
+
+2. **PC servidor** — abra no navegador: `http://localhost:8080/`
+
+3. **PC cliente** — abra no navegador: `http://192.168.1.10:8080/` (use o IP real do servidor)
+
+4. A página usa automaticamente `window.location.hostname` para o WebSocket. Se você abre `http://192.168.1.10:8080/`, ela conecta em `ws://192.168.1.10:8765` — não precisa configurar nada no front.
+
+5. Digite mensagens em um PC; elas aparecem no outro em tempo real.
+
+**Importante:** não abra o arquivo `CientWebSocketPage.html` direto do disco (`file://`). Sempre use a URL HTTP do servidor (`http://IP:8080/`), senão o WebSocket não encontra o servidor.
+
+---
+
 ## Dicas para testes
 
 1. **Sempre inicie o servidor antes do cliente** — o cliente tenta conectar imediatamente.
@@ -263,4 +359,4 @@ No Docker, os serviços já expõem as portas no host; os clientes locais contin
 | Porta já em uso                  | Outro processo na mesma porta     | Feche o processo ou pare o Docker (`down`)   |
 | Chat Q3 não envia mensagens      | Apenas 1 cliente conectado        | Abra um segundo terminal com `ClientChat.py` |
 | Página web Q10 em branco         | Servidor HTTP não subiu           | Verifique `python ServerWebSocket.py`        |
-| WebSocket Q10 não conecta        | Porta 8765 bloqueada              | Libere a porta ou reinicie o servidor        |
+| WebSocket Q10 não conecta        | Porta 8765 bloqueada ou página aberta via `file://` | Use `http://IP_SERVIDOR:8080/` e libere 8765 no firewall |

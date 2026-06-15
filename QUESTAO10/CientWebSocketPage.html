@@ -7,6 +7,9 @@
 <!DOCTYPE html>
 <html>
 <body>
+  <!-- Indicador de status da conexão WebSocket -->
+  <p id="status">Conectando...</p>
+
   <!-- Área onde mensagens recebidas de outros usuários são exibidas -->
   <div id="messages"></div>
   
@@ -19,10 +22,24 @@
   <script>
     // Porta do WebSocket — deve coincidir com WS_PORT no ServerWebSocket.py
     const wsPort = 8765;
-    
-    // hostname = mesmo host da página (localhost ao acessar http://localhost:8080/)
-    // Constrói URL ws://localhost:8765 (ou IP da máquina em rede local)
-    const ws = new WebSocket(`ws://${window.location.hostname}:${wsPort}`);
+
+    // Usa o mesmo host da página (funciona em 2 PCs: http://IP_SERVIDOR:8080/)
+    const wsUrl = `ws://${window.location.hostname}:${wsPort}`;
+    const ws = new WebSocket(wsUrl);
+
+    const statusEl = document.getElementById('status');
+
+    ws.onopen = () => {
+      statusEl.textContent = `Conectado a ${wsUrl}`;
+    };
+
+    ws.onerror = () => {
+      statusEl.textContent = `Erro ao conectar em ${wsUrl}. Verifique se o servidor está rodando e o firewall permite a porta ${wsPort}.`;
+    };
+
+    ws.onclose = () => {
+      statusEl.textContent = 'Desconectado do servidor.';
+    };
     
     // Evento disparado quando uma mensagem chega do servidor WebSocket
     ws.onmessage = (event) => {
