@@ -1,0 +1,130 @@
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:
+"Segoe UI",
+Arial;
+background: linear-gradient( 135deg,#667eea,#764ba2);
+height:100vh;
+}
+
+.page{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.login{
+background:white;
+padding:40px;
+border-radius:20px;
+width:350px;
+display:flex;
+flex-direction:column;
+gap:15px;
+box-shadow: 0 20px 40px rgba(0,0,0,.2);
+}
+
+.login h1{
+text-align:center;
+}
+
+input{
+padding:12px;
+border-radius:20px;
+border:1px solid #ccc;
+outline:none;
+font-size:15px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:20px;
+background:#4f46e5;
+color:white;
+cursor:pointer;
+font-size:15px;
+}
+
+button:hover{
+background:#4338ca;
+}
+
+.chat-container{
+width:450px;
+height:650px;
+background:white;
+border-radius:20px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
+
+header{
+background:#4f46e5;
+color:white;
+padding:15px 20px;
+}
+
+header h1{
+margin:0;
+font-size:20px;
+font-weight:600;
+}
+header p{
+margin:5px 0 0;
+}
+
+.online{
+color:#86efac;
+}
+
+.offline{
+color:#fecaca;
+}
+
+.messages{
+flex:1;
+padding:20px;
+background:#f8fafc;
+overflow-y:auto;
+}
+
+.message{
+max-width:75%;
+padding:12px 16px;
+margin-bottom:12px;
+border-radius:18px;
+font-size:15px;
+}
+
+.sent{
+background:#4f46e5;
+color:white;
+margin-left:auto;
+border-bottom-right-radius:5px;
+}
+
+.received{
+background:#e2e8f0;
+color:#111;
+margin-right:auto;
+border-bottom-left-radius:5px;
+}
+
+footer{
+display:flex;
+gap:10px;
+padding:15px;
+border-top:1px solid #ddd;
+}
+
+footer input{
+flex:1;
+}
