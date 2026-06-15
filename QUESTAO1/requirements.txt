@@ -1,0 +1,2 @@
+# Questão 1 — ServerQ1.py / ClientQ1.py
+# Usa apenas biblioteca padrão: socket, threading

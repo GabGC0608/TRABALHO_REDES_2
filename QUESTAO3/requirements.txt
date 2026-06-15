@@ -1,0 +1,2 @@
+# Questão 3 — ServerChat.py / ClientChat.py
+# Usa apenas biblioteca padrão: socket, threading

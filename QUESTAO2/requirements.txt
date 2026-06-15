@@ -1,0 +1,2 @@
+# Questão 2 — ServerUDP.py / ClientUDP.py
+# Usa apenas biblioteca padrão: socket

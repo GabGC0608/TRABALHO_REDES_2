@@ -1,0 +1,2 @@
+# Questão 4 — ServerHora.py / ClientHora.py
+# Usa apenas biblioteca padrão: socket, threading, datetime, zoneinfo, logging
